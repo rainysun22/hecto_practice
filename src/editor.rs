@@ -44,4 +44,27 @@ impl Editor {
         }
         Ok(())
     }
+
+    fn evaluate_event(&mut self, event: &Event) {
+        if let Key(KeyEvent {
+            code, modifiers, ..
+        }) = event
+        {
+            println!("{event:?}");
+            match code {
+                Char('q') if *modifiers == KeyModifiers::CONTROL => {
+                    self.should_quit = true;
+                }
+                _ => (),
+            }
+        }
+    }
+
+    fn refresh_screen(&self) -> Result<(), std::io::Error> {
+        if self.should_quit {
+            Self::clear_screen()?;
+            print!("Goodbye.\r\n");
+        }
+        Ok(())
+    }
 }
