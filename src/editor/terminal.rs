@@ -1,4 +1,3 @@
-use core::fmt::Display;
 use crossterm::cursor::{Hide, MoveTo, Show};
 use crossterm::style::Print;
 use crossterm::terminal::{Clear, ClearType, disable_raw_mode, enable_raw_mode, size};
@@ -51,7 +50,7 @@ impl Terminal {
         Self::queue_command(Show)?;
         Ok(())
     }
-    pub fn print(string: impl Display) -> Result<(), Error> {
+    pub fn print(string: &str) -> Result<(), Error> {
         Self::queue_command(Print(string))?;
         Ok(())
     }
